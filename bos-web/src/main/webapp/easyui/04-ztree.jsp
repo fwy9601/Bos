@@ -104,6 +104,25 @@
                                     simpleData: {
                                         enable: true//使用简单json数据构造ztree节点
                                     }
+                                },
+                                callback:{
+                                    //为ztree绑定单击事件
+                                    onClick:function(event,treeId,treeNode){
+                                    	if(treeNode.page != undefined){
+                                    		//判断选项卡是否存在
+                                    		var e = $("#mytabs").tabs("exists",treeNode.name);
+                                    		if(e){
+                                    			$("#mytabs").tabs("select",treeNode.name);
+                                    		}else{
+		                                    	//动态添加选项卡
+		                                    	$("#mytabs").tabs("add",{
+		                                    		title:treeNode.name,
+		                                    		closable:true,
+		                                            content:'<iframe frameborder="0" height="100%" width="100%" src="'+treeNode.page+'"></iframe>'
+		                                    	});
+                                    		}
+                                    	}
+                                    }
                                 }
                         };
                         //发送ajax请求，获取json数据
