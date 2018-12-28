@@ -5,4 +5,6 @@ import com.dusto.bos.domain.User;
 
 public interface IUserDao extends IBaseDao<User> {
 
+    public User findUserByUsernameAndPassword(String username,String password);
+
 }

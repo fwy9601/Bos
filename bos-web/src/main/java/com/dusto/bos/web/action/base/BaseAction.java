@@ -8,8 +8,10 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
+    public static final String HOME = "home";
+    
     //模型对象
-    private T model;
+    protected T model;
     public T getModel() {
         return model;
     }
