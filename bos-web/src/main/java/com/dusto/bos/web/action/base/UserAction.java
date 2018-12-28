@@ -30,7 +30,7 @@ public class UserAction extends BaseAction<User> {
             User user =  userService.login(model);
             if(user != null){
                 //登录成功，将user对象放入session，然后跳转到首页
-                ServletActionContext.getRequest().getSession().setAttribute("user", user);
+                ServletActionContext.getRequest().getSession().setAttribute("loginUser", user);
                 return HOME;
             }else{
                 //登录失败，设置提示信息，跳转到登录页面
@@ -42,6 +42,15 @@ public class UserAction extends BaseAction<User> {
             this.addActionError("输入的验证码错误");
             return LOGIN;
         }
+    }
+    
+    /**
+     * 用户注销
+     * @return
+     */
+    public String logout() {
+        ServletActionContext.getRequest().getSession().invalidate();
+        return LOGIN;
     }
 
     public void setCheckcode(String checkcode) {
