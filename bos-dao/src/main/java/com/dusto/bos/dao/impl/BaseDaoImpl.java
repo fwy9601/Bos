@@ -7,12 +7,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.dusto.bos.dao.base.IBaseDao;
 /**
- * 持久层同意实现
+ * 持久层统一实现
  * @author 13302
  *
  * @param <T>
@@ -59,6 +61,19 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T>{
     public List<T> findAll() {
         String hql = "FORM "+entityClass.getSimpleName();
         return (List<T>)this.getHibernateTemplate().find(hql);
+    }
+    
+    /**
+     * 执行更新queryName是在hbm.xml中的语句名称
+     */
+    public void executeUpdate(String queryName, Object... objects) {
+        Session session = this.getSessionFactory().getCurrentSession();
+        Query query = session.getNamedQuery(queryName);
+        //为HQL语句中的？赋值
+        for (int i = 0; i < objects.length; i++) {
+            query.setParameter(i, objects[i]);
+        }
+        query.executeUpdate();
     }
 
 }

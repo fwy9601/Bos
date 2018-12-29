@@ -15,15 +15,25 @@ public class UserServicImpl implements IUserService {
 
     @Autowired
     private IUserDao userDao;
+
     /**
      * 用户登录
+     * 
      * @param user
      * @return
      */
     public User login(User user) {
-        //使用MD5加密密码
+        // 使用MD5加密密码
         String md5 = MD5Utils.md5(user.getPassword());
-        return userDao.findUserByUsernameAndPassword(user.getUsername(),md5);
+        return userDao.findUserByUsernameAndPassword(user.getUsername(), md5);
+    }
+
+    /**
+     * 根据用户id修改密码
+     */
+    public void editPassword(String id, String password) {
+        password = MD5Utils.md5(password);
+        userDao.executeUpdate("user.editpassword",  password,id);
     }
 
 }
