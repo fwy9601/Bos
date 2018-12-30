@@ -172,7 +172,7 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addStaffForm" action="staffAction_add.action" method="post">
+			<form id="addStaffForm" action="staffAction_add.action"  method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
@@ -189,9 +189,12 @@
 						<td><script type="text/javascript">
 							$(function() {
 								//为按钮绑定事件
-								$("save").click(function(){
+								$("#save").click(function(){
 									//表单校验，如果通过就提交
 									var v = $("#addStaffForm").form("validate");
+									alert("1");
+									alert(v);
+									alert("1");
 									if(v){
 										//$("#addStaffForm").form("submit");不刷新页面
 										$("#addStaffForm").submit();
@@ -201,13 +204,13 @@
 								//扩展手机校验
 								$.extend($.fn.validatebox.defaults.rules, {
 									telephone : {
-										validate : function(value, param) {
+										validator : function(value, param) {
 											return reg.test(value);
 										},
 										message : '手机号输入有误'
-									},
-								})
-							})
+									}
+								});
+							});
 						</script> <input type="text" data-options="validType:'telephone'"
 							name="telephone" class="easyui-validatebox" required="true" /></td>
 					</tr>
