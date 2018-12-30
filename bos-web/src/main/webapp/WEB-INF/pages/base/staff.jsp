@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/js/easyui/ext/portal.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/css/default.css">	
+	href="${pageContext.request.contextPath }/css/default.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript"
@@ -27,25 +27,25 @@
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
-	function doAdd(){
+	function doAdd() {
 		//alert("增加...");
 		$('#addStaffWindow').window("open");
 	}
-	
-	function doView(){
+
+	function doView() {
 		alert("查看...");
 	}
-	
-	function doDelete(){
+
+	function doDelete() {
 		alert("删除...");
 	}
-	
-	function doRestore(){
+
+	function doRestore() {
 		alert("将取派员还原...");
 	}
 	//工具栏
 	var toolbar = [ {
-		id : 'button-view',	
+		id : 'button-view',
 		text : '查询',
 		iconCls : 'icon-search',
 		handler : doView
@@ -59,17 +59,17 @@
 		text : '作废',
 		iconCls : 'icon-cancel',
 		handler : doDelete
-	},{
+	}, {
 		id : 'button-save',
 		text : '还原',
 		iconCls : 'icon-save',
 		handler : doRestore
-	}];
+	} ];
 	// 定义列
 	var columns = [ [ {
 		field : 'id',
 		checkbox : true,
-	},{
+	}, {
 		field : 'name',
 		title : '姓名',
 		width : 120,
@@ -84,10 +84,10 @@
 		title : '是否有PDA',
 		width : 120,
 		align : 'center',
-		formatter : function(data,row, index){
-			if(data=="1"){
+		formatter : function(data, row, index) {
+			if (data == "1") {
 				return "有";
-			}else{
+			} else {
 				return "无";
 			}
 		}
@@ -96,10 +96,10 @@
 		title : '是否作废',
 		width : 120,
 		align : 'center',
-		formatter : function(data,row, index){
-			if(data=="0"){
+		formatter : function(data, row, index) {
+			if (data == "0") {
 				return "正常使用"
-			}else{
+			} else {
 				return "已作废";
 			}
 		}
@@ -114,19 +114,21 @@
 		width : 200,
 		align : 'center'
 	} ] ];
-	
-	$(function(){
+
+	$(function() {
 		// 先将body隐藏，再显示，不会出现页面刷新效果
-		$("body").css({visibility:"visible"});
-		
+		$("body").css({
+			visibility : "visible"
+		});
+
 		// 取派员信息表格
-		$('#grid').datagrid( {
+		$('#grid').datagrid({
 			iconCls : 'icon-forward',
 			fit : true,
 			border : false,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList : [ 30, 50, 100 ],
 			pagination : true,
 			toolbar : toolbar,
 			url : "json/staff.json",
@@ -134,73 +136,98 @@
 			columns : columns,
 			onDblClickRow : doDblClickRow
 		});
-		
+
 		// 添加取派员窗口
 		$('#addStaffWindow').window({
-	        title: '添加取派员',
-	        width: 400,
-	        modal: true,
-	        shadow: true,
-	        closed: true,
-	        height: 400,
-	        resizable:false
-	    });
-		
+			title : '添加取派员',
+			width : 400,
+			modal : true,
+			shadow : true,
+			closed : true,
+			height : 400,
+			resizable : false
+		});
+
 	});
 
-	function doDblClickRow(rowIndex, rowData){
+	function doDblClickRow(rowIndex, rowData) {
 		alert("双击表格数据...");
 	}
-</script>	
+</script>
 </head>
-<body class="easyui-layout" style="visibility:hidden;">
+<body class="easyui-layout" style="visibility: hidden;">
 	<div region="center" border="false">
-    	<table id="grid"></table>
+		<table id="grid"></table>
 	</div>
-	<div class="easyui-window" title="对收派员进行添加或者修改" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
-		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
+	<div class="easyui-window" title="对收派员进行添加或者修改" id="addStaffWindow"
+		collapsible="false" minimizable="false" maximizable="false"
+		style="top: 20px; left: 200px">
+		<div region="north" style="height: 31px; overflow: hidden;"
+			split="false" border="false">
 			<div class="datagrid-toolbar">
-				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true" >保存</a>
+				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton"
+					plain="true">保存</a>
 			</div>
 		</div>
-		
-		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form>
+
+		<div region="center" style="overflow: auto; padding: 5px;"
+			border="false">
+			<form id="addStaffForm" action="staffAction_add.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
 					</tr>
 					<!-- TODO 这里完善收派员添加 table -->
 					<tr>
-						<td>取派员编号</td>
-						<td><input type="text" name="id" class="easyui-validatebox" required="true"/></td>
-					</tr>
-					<tr>
 						<td>姓名</td>
-						<td><input type="text" name="name" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="name" class="easyui-validatebox"
+							required="true" /></td>
 					</tr>
 					<tr>
 						<td>手机</td>
-						<td><input type="text" name="telephone" class="easyui-validatebox" required="true"/></td>
+
+						<td><script type="text/javascript">
+							$(function() {
+								//为按钮绑定事件
+								$("save").click(function(){
+									//表单校验，如果通过就提交
+									var v = $("#addStaffForm").form("validate");
+									if(v){
+										//$("#addStaffForm").form("submit");不刷新页面
+										$("#addStaffForm").submit();
+									}
+								});
+								var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+								//扩展手机校验
+								$.extend($.fn.validatebox.defaults.rules, {
+									telephone : {
+										validate : function(value, param) {
+											return reg.test(value);
+										},
+										message : '手机号输入有误'
+									},
+								})
+							})
+						</script> <input type="text" data-options="validType:'telephone'"
+							name="telephone" class="easyui-validatebox" required="true" /></td>
 					</tr>
 					<tr>
 						<td>单位</td>
-						<td><input type="text" name="station" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="station"
+							class="easyui-validatebox" required="true" /></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						<input type="checkbox" name="haspda" value="1" />
-						是否有PDA</td>
+						<td colspan="2"><input type="checkbox" name="haspda"
+							value="1" /> 是否有PDA</td>
 					</tr>
 					<tr>
 						<td>取派标准</td>
-						<td>
-							<input type="text" name="standard" class="easyui-validatebox" required="true"/>  
-						</td>
+						<td><input type="text" name="standard"
+							class="easyui-validatebox" required="true" /></td>
 					</tr>
-					</table>
+				</table>
 			</form>
 		</div>
 	</div>
 </body>
-</html>	
+</html>

@@ -29,7 +29,7 @@
             <key>
                 <column name="region_id" length="32" />
             </key>
-            <one-to-many class="com.itheima.bos.domain.Subarea" />
+            <one-to-many class="com.dusto.bos.domain.Subarea" />
         </set>
     </class>
 </hibernate-mapping>

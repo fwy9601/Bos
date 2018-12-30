@@ -29,7 +29,7 @@
             <key>
                 <column name="staff_id" length="32" />
             </key>
-            <one-to-many class="com.itheima.bos.domain.Decidedzone" />
+            <one-to-many class="com.dusto.bos.domain.Decidedzone" />
         </set>
     </class>
 </hibernate-mapping>
