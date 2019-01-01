@@ -10,9 +10,13 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.dusto.bos.dao.base.IBaseDao;
+import com.dusto.bos.utils.PageBean;
 /**
  * 持久层统一实现
  * @author 13302
@@ -74,6 +78,24 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T>{
             query.setParameter(i, objects[i]);
         }
         query.executeUpdate();
+    }
+
+    /**
+     * 页面查询
+     */
+    public void pageQuery(PageBean pageBean) {
+        int currentPage = pageBean.getCurrentPage();
+        int pageSize = pageBean.getPageSize();
+        DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
+        //查询total--总数量
+        detachedCriteria.setProjection(Projections.rowCount());//制定hibernate发出sql的形式 count(*)
+        List<Long> countList = (List<Long>)this.getHibernateTemplate().findByCriteria(detachedCriteria);
+        pageBean.setTotal(countList.get(0).intValue());
+        //查询rows--当前页需要的数据集合
+        detachedCriteria.setProjection(null);//制定hibernate发出sql的形式 count(*)
+        int firstResult = (currentPage-1)*pageSize;
+        List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria, firstResult, pageSize);
+        pageBean.setRows(rows);
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dusto.bos.dao.base.IStaffDao;
 import com.dusto.bos.domain.Staff;
 import com.dusto.bos.service.IStaffService;
+import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -17,6 +18,10 @@ public class IStaffServiceImpl implements IStaffService {
     
     public void save(Staff model) {
         staffdao.save(model);
+    }
+
+    public void pageQuery(PageBean pageBean) {
+        staffdao.pageQuery(pageBean);
     }
 
 }
