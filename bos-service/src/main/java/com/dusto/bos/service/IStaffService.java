@@ -9,4 +9,6 @@ public interface IStaffService {
 
     public void pageQuery(PageBean pageBean);
 
+    public void deleteBatch(String ids);
+
 }

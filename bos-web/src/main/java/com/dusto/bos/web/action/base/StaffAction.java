@@ -31,7 +31,7 @@ public class StaffAction extends BaseAction<Staff> {
         staffService.save(model);
         return LIST;
     }
-    //
+    //属性驱动
     private int page;
     private int rows;
     
@@ -58,6 +58,14 @@ public class StaffAction extends BaseAction<Staff> {
         return NONE;
     }
 
+    //属性驱动
+    private String ids;
+    
+    public String deleteBatch(){
+        staffService.deleteBatch(ids);
+        return LIST;
+    }
+    
     public int getPage() {
         return page;
     }
@@ -72,5 +80,13 @@ public class StaffAction extends BaseAction<Staff> {
 
     public void setRows(int rows) {
         this.rows = rows;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
     }
 }
