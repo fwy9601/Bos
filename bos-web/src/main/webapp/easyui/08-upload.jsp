@@ -19,15 +19,15 @@
 <script type="text/javascript"
     src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/jquery.ocupload-1.1.2.js"></script>
+    src="${pageContext.request.contextPath }/js/jquery.ocupload-1.1.2.js"></script>
 <title>upload</title>
 <script type="text/javascript">
     $(function(){
-    	//页面加载完成后，调用插件的upload方法，动态修改html元素
-    	$("#myButton").upload({
-    		action:'xxx.action',
-    		name:'myFile'
-    	});
+        //页面加载完成后，调用插件的upload方法，动态修改html元素
+        $("#myButton").upload({
+            action:'xxx.action',
+            name:'myFile'
+        });
     });
 </script>
 </head>
@@ -35,5 +35,4 @@
     <input id="myButton" type="button" value="上传"/>
     
 </body>
-</script>
 </html>

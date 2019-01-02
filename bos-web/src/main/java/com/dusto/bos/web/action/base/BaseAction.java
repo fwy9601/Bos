@@ -3,16 +3,16 @@ package com.dusto.bos.web.action.base;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
 
-import com.dusto.bos.domain.Region;
-import com.dusto.bos.domain.Staff;
 import com.dusto.bos.utils.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -31,10 +31,11 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
     /**
      * 将java指定对象转为json
+     * 
      * @param o
      * @param exclueds
      */
-    public void java2Json(Object o,String[] exclueds){
+    public void java2Json(Object o, String[] exclueds) {
         // 将pageBean对象转为json，输出流写回页面
         // 指定那些属性不需要装json
         JsonConfig jsonConfig = new JsonConfig();
@@ -47,7 +48,27 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * 将java指定对象转为json
+     * 
+     * @param o
+     * @param exclueds
+     */
+    public void java2Json(List o, String[] exclueds) {
+        // 将pageBean对象转为json，输出流写回页面
+        // 指定那些属性不需要装json
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(exclueds);
+        String json = JSONArray.fromObject(o, jsonConfig).toString();
+        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
+        try {
+            ServletActionContext.getResponse().getWriter().print(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static final String LIST = "list";
     public static final String HOME = "home";
 
