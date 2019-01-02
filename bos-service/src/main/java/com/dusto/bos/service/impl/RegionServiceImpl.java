@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dusto.bos.dao.IRegionDao;
 import com.dusto.bos.domain.Region;
 import com.dusto.bos.service.IRegionService;
+import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -24,6 +25,13 @@ public class RegionServiceImpl implements IRegionService{
         for (Region region : regionList) {
             regionDao.saveOrUpdate(region);
         }
+    }
+
+    /**
+     * 区域分页查询
+     */
+    public void pageQuery(PageBean pageBean) {
+        regionDao.pageQuery(pageBean);
     }
 
 }
