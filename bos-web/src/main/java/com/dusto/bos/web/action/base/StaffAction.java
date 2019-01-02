@@ -66,6 +66,21 @@ public class StaffAction extends BaseAction<Staff> {
         return LIST;
     }
     
+    /**
+     * 修改取派员信息
+     * @return
+     */
+    public String edit(){
+        Staff staff = staffService.findById(model.getId());
+        //使用页面提交的数据进行覆盖
+        staff.setName(model.getName());
+        staff.setTelephone(model.getTelephone());
+        staff.setHaspda(model.getHaspda());
+        staff.setStandard(model.getStandard());
+        staff.setStation(model.getStation());
+        staffService.update(staff);
+        return LIST;
+    }
     public int getPage() {
         return page;
     }
