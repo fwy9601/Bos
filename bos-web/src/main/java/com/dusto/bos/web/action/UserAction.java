@@ -1,4 +1,4 @@
-package com.dusto.bos.web.action.base;
+package com.dusto.bos.web.action;
 
 import java.io.IOException;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.dusto.bos.domain.User;
 import com.dusto.bos.service.IUserService;
 import com.dusto.bos.utils.BOSUtils;
+import com.dusto.bos.web.action.base.BaseAction;
 
 @Controller
 @Scope("prototype")

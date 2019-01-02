@@ -1,4 +1,4 @@
-package com.dusto.bos.web.action.base;
+package com.dusto.bos.web.action;
 
 import java.io.IOException;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.dusto.bos.domain.Staff;
 import com.dusto.bos.service.IStaffService;
 import com.dusto.bos.utils.PageBean;
+import com.dusto.bos.web.action.base.BaseAction;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;

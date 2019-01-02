@@ -1,0 +1,74 @@
+package com.dusto.bos.web.action;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.dusto.bos.domain.Region;
+import com.dusto.bos.service.IRegionService;
+import com.dusto.bos.web.action.base.BaseAction;
+
+/**
+ * 区域管理
+ * @author dusto
+ *
+ */
+@Controller
+@Scope("prototype")
+public class RegionAction extends BaseAction<Region>{
+    
+    @Autowired
+    public IRegionService regionService;
+    
+    //属性驱动，接受上传文件
+    private File regionFile;
+
+    /**
+     * 区域导入
+     * @return
+     * @throws Exception
+     */
+    /**
+     * @return
+     * @throws Exception
+     */
+    public String importXls() throws Exception{
+        System.out.println(regionFile);
+        //使用poi解析excel文件
+        HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(regionFile)) ;
+        //根据名称读取sheet
+        HSSFSheet sheet = workbook.getSheet("Sheet1");
+        //遍历标签页中所有的行
+        List<Region> regionList = new ArrayList<>();
+        for (Row row : sheet) {
+            int rowNum = row.getRowNum();
+            if(rowNum==0)
+                continue;
+            String id = row.getCell(0).getStringCellValue();
+            String province = row.getCell(1).getStringCellValue();
+            String city = row.getCell(2).getStringCellValue();
+            String district = row.getCell(3).getStringCellValue();
+            String postcode = row.getCell(4).getStringCellValue();
+            Region region = new Region(id, province, city, district, postcode, null, null, null);
+            regionList.add(region);
+        }
+        //批量保存
+        regionService.saveBatch(regionList);
+        
+        return NONE;
+    }
+    
+    public void setRegionFile(File regionFile) {
+        this.regionFile = regionFile;
+    }
+}
