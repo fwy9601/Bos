@@ -46,9 +46,10 @@ public class StaffAction extends BaseAction<Staff> {
         pageBean.setPageSize(rows);
         //创建离线提交查询对象
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Staff.class);
+        pageBean.setDetachedCriteria(detachedCriteria);
         staffService.pageQuery(pageBean);
         //将pageBean对象转为json，输出流写回页面
-        //
+        //指定那些属性不需要装json
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(new String[]{"currentPage","pageSize","detachedCriteria"});
         String json = JSONObject.fromObject(pageBean,jsonConfig).toString();

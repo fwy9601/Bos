@@ -11,7 +11,7 @@ import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
-public class IStaffServiceImpl implements IStaffService {
+public class StaffServiceImpl implements IStaffService {
 
     @Autowired
     private IStaffDao staffdao; 
