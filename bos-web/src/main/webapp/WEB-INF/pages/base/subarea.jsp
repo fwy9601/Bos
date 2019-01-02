@@ -213,11 +213,22 @@
 			<div class="datagrid-toolbar">
 				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton"
 					plain="true">保存</a>
+				<script type="text/javascript">
+			        $(function(){
+			        	$("#save").click(function(){
+			        		//表达校验
+			        		var r = $("#addSubareaFrom").form('validate');
+			        		if(r){
+			        			$("#addSubareaFrom").submit();
+			        		}
+			        	});
+			        })
+			    </script>
 			</div>
 		</div>
 
 		<div style="overflow: auto; padding: 5px;" border="false">
-			<form>
+			<form id="addSubareaFrom" method="post" action="subareaAction_add.action">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">分区信息</td>
