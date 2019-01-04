@@ -242,5 +242,6 @@
         <module>bos-service</module>
         <module>bos-web</module>
         <module>bos-utils</module>
+        <module>crm-web</module>
     </modules>
 </project>
