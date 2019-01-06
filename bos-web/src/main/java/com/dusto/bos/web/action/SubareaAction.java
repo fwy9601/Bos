@@ -10,16 +10,30 @@ import com.dusto.bos.web.action.base.BaseAction;
 
 @Controller
 @Scope("prototype")
-public class SubareaAction extends BaseAction<Subarea>{
+public class SubareaAction extends BaseAction<Subarea> {
 
     @Autowired
     private ISubareaService subareaService;
+
     /**
      * 添加分区
+     * 
      * @return
      */
-    public String add(){
+    public String add() {
         subareaService.save(model);
         return LIST;
+    }
+
+    /**
+     * 分页查询
+     * 
+     * @return
+     */
+    public String pageQuery() {
+        subareaService.pageQuery(pageBean);
+        this.java2Json(pageBean,
+                new String[] { "currentPage", "pageSize", "detachedCriteria", "decidedzone", "subareas" });
+        return NONE;
     }
 }

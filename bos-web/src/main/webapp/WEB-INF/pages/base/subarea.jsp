@@ -162,7 +162,7 @@
 			pageList : [ 30, 50, 100 ],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/subarea.json",
+			url : "subareaAction_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
