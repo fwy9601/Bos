@@ -53,7 +53,7 @@ public class RegionAction extends BaseAction<Region> {
      * @throws Exception
      */
     public String importXls() throws Exception {
-        System.out.println(regionFile);
+        //System.out.println(regionFile);
         // 使用poi解析excel文件
         HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(regionFile));
         // 根据名称读取sheet

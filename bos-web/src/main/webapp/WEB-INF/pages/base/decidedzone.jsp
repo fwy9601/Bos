@@ -44,7 +44,20 @@
 	}
 	
 	function doAssociations(){
-		$('#customerWindow').window('open');
+		//获取当前表格所有选择的行
+		var arr = $("#grid").datagrid("getSelections");
+		if(arr.length != 1){
+			//弹出提示
+			$.messager.alert("提示信息","请选择一个定区操作！","warning");
+		}else{
+			//选择一个定区
+			$('#customerWindow').window('open');
+			//发送ajax请求,请求定区Action，在定区action中通过crm代理对象完成对应crm代理对象的调用
+			var url_1 = "decidedzoneAction_findListNotAssociation.action";
+			$.post(url_1,function(data){
+				//
+			});
+		}
 	}
 	
 	//工具栏
