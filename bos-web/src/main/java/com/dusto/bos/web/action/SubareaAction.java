@@ -35,27 +35,31 @@ public class SubareaAction extends BaseAction<Subarea> {
      * @return
      */
     public String pageQuery() {
-        DetachedCriteria db = pageBean.getDetachedCriteria();
+        DetachedCriteria dc = pageBean.getDetachedCriteria();
         //动态添加过滤条件
         String addresskey = model.getAddresskey();
         if(StringUtils.isNoneBlank(addresskey)){
             //添加过滤条件，根据地址关键字模糊查询
-            db.add(Restrictions.like("addresskey", "%"+addresskey+"%"));
+            dc.add(Restrictions.like("addresskey", "%"+addresskey+"%"));
         }
         Region region = model.getRegion();
         if(region!=null){
             String province = region.getProvince();
             String city = region.getCity();
             String district = region.getDistrict();
-            if(StringUtils.isNoneBlank(province)){
+            //参数一分区对象关联区域对象中的属性名称，参数二别名可以随意
+            dc.createAlias("region", "r");
+            if(StringUtils.isNotBlank(province)){
                 //添加过滤条件，根据省份关键字模糊查询
-                db.add(Restrictions.like("addresskey", "%"+province+"%"));
+                dc.add(Restrictions.like("r.province","%"+province+"%"));
             }
-            if(StringUtils.isNoneBlank(city)){
-                  //添加过滤条件，根据地址关键字模糊查询
+            if(StringUtils.isNotBlank(city)){
+                //添加过滤条件，根据市关键字模糊查询
+                dc.add(Restrictions.like("r.city","%"+city+"%"));
             }
-            if(StringUtils.isNoneBlank(district)){
-                  //添加过滤条件，根据地址关键字模糊查询
+            if(StringUtils.isNotBlank(district)){
+                //添加过滤条件，根据区关键字模糊查询
+                dc.add(Restrictions.like("r.district","%"+district+"%"));
             }
         }
         subareaService.pageQuery(pageBean);
