@@ -43,8 +43,10 @@
 		$('#searchWindow').window("open");
 	}
 
+	//导出按钮对应的处理函数
 	function doExport() {
-		alert("导出");
+		//发送请求，请求action，进行文件下载
+		window.location.href = "subareaAction_exportXls.action";
 	}
 
 	function doImport() {
