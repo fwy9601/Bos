@@ -1,5 +1,7 @@
 package com.dusto.bos.web.action;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,17 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
         return LIST;
     }
     
+    /**
+     * 分页查询
+     * 
+     * @param page
+     * @throws IOException
+     */
+    public String pageQuery() throws IOException {
+        decidedzoneService.pageQuery(pageBean);
+        this.java2Json(pageBean, new String[] { "currentPage", "pageSize", "detachedCriteria","subareas" });
+        return NONE;
+    }
     
     public void setSubareaId(String[] subareaId) {
         this.subareaId = subareaId;

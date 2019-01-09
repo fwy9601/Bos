@@ -10,6 +10,7 @@ import com.dusto.bos.domain.Decidedzone;
 import com.dusto.bos.domain.Subarea;
 import com.dusto.bos.service.DecidedzoneService;
 import com.dusto.bos.service.ISubareaService;
+import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -30,6 +31,10 @@ public class DecidedzoneServiceImpl implements DecidedzoneService {
             Subarea subarea = subareaDao.findById(id);
             subarea.setDecidedzone(model);
         }
+    }
+
+    public void pageQuery(PageBean pageBean) {
+        decidedzoneDao.pageQuery(pageBean);
     }
 
 }
