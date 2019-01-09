@@ -226,9 +226,6 @@
 								$("#save").click(function(){
 									//表单校验，如果通过就提交
 									var v = $("#addStaffForm").form("validate");
-									alert("1");
-									alert(v);
-									alert("1");
 									if(v){
 										//$("#addStaffForm").form("submit");不刷新页面
 										$("#addStaffForm").submit();

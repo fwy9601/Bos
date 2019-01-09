@@ -47,6 +47,10 @@ public class Subarea implements java.io.Serializable {
 	public String getId() {
 		return this.id;
 	}
+	
+	public String getSubareaId(){
+	    return id;
+	}
 
 	public void setId(String id) {
 		this.id = id;

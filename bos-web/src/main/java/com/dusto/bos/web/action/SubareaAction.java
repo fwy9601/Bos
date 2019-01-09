@@ -124,7 +124,7 @@ public class SubareaAction extends BaseAction<Subarea> {
      */
     public String listajax(){
         List<Subarea> list  = subareaService.findListNotAssociation();
-        this.java2Json(list, new String[] {""});
+        this.java2Json(list, new String[] {"region","decidedzone"});
         return NONE;
     }
 }
