@@ -17,19 +17,19 @@ import com.dusto.bos.web.action.base.BaseAction;
 @Scope("prototype")
 public class DecidedzoneAction extends BaseAction<Decidedzone>{
     //属性驱动，接受多个分区id
-    private String[] subareaid;
+    private String[] subareaId;
     
     @Autowired
     private DecidedzoneService decidedzoneService;
     
     public String add(){
-        decidedzoneService.add(model,subareaid);
+        decidedzoneService.add(model,subareaId);
         return LIST;
     }
     
     
-    public void setSubareaid(String[] subareaid) {
-        this.subareaid = subareaid;
+    public void setSubareaId(String[] subareaId) {
+        this.subareaId = subareaId;
     }
     
 }
