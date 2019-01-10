@@ -37,7 +37,7 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
      */
     public String pageQuery() throws IOException {
         decidedzoneService.pageQuery(pageBean);
-        this.java2Json(pageBean, new String[] { "currentPage", "pageSize", "detachedCriteria","subareas" });
+        this.java2Json(pageBean, new String[] { "currentPage", "pageSize", "detachedCriteria","subareas","decidedzones" });
         return NONE;
     }
     
