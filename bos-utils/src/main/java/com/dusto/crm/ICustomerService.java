@@ -26,6 +26,20 @@ public interface ICustomerService {
 
     /**
      * 
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "assigncustomerstodecidedzone", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.Assigncustomerstodecidedzone")
+    @ResponseWrapper(localName = "assigncustomerstodecidedzoneResponse", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.AssigncustomerstodecidedzoneResponse")
+    public void assigncustomerstodecidedzone(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        List<Integer> arg1);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<com.dusto.crm.Customer>
      */

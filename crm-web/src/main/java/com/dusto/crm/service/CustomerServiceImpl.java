@@ -46,6 +46,7 @@ public class CustomerServiceImpl implements ICustomerService {
         return list;
     }
     
+    //查询关联到指定定区的客户
     public List<Customer> findListHasAssociation(String decidedzoneId) {
         String sql = "SELECT * FROM t_customer WHERE decidedzone_id=?";
         List<Customer> list = jdbcTemplate.query(sql, new RowMapper<Customer>(){
@@ -60,6 +61,16 @@ public class CustomerServiceImpl implements ICustomerService {
             }
         },decidedzoneId);
         return list;
+    }
+    
+    //定去关联客户
+    public void assigncustomerstodecidedzone(String decidedzoneId, Integer[] customerIds) {
+        String sql = "update t_customer set decidedzone_id=null where decidedzone_id = ?";
+        jdbcTemplate.update(sql, decidedzoneId);
+        sql = "update t_customer set decidedzone_id= ? where id = ?";
+        for (Integer id : customerIds) {
+            jdbcTemplate.update(sql, decidedzoneId,id);
+        }
     }
 
 }

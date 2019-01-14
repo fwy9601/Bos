@@ -10,12 +10,26 @@ import com.dusto.crm.domain.Customer;
 public interface ICustomerService {
     public List<Customer> findAll();
 
-    // 查询未关联到定区的客户
+    /**
+     * 查询未关联到定区的客户
+     * 
+     * @return
+     */
     public List<Customer> findListNotAssociation();
 
     /**
-     * 查询已关联到定区的客户
-     * decidedzoneId定区Id
+     * 查询关联到指定定区的客户
+     * 
+     * @param decidedzoneId
+     * @return
      */
     public List<Customer> findListHasAssociation(String decidedzoneId);
+
+    /**
+     * 定去关联客户
+     * 
+     * @param decidedzoneId
+     * @param customerIds
+     */
+    public void assigncustomerstodecidedzone(String decidedzoneId, Integer[] customerIds);
 }
