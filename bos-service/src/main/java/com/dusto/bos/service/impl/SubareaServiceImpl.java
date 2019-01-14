@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dusto.bos.dao.IDecidedzoneDao;
 import com.dusto.bos.dao.ISubareaDao;
 import com.dusto.bos.domain.Subarea;
 import com.dusto.bos.service.ISubareaService;
@@ -19,6 +20,9 @@ public class SubareaServiceImpl implements ISubareaService {
 
     @Autowired
     private ISubareaDao subareaDao;
+    
+    @Autowired
+    private IDecidedzoneDao decidedzoneDao;
     
     /**
      * 添加分区
@@ -44,6 +48,15 @@ public class SubareaServiceImpl implements ISubareaService {
         //添加过滤条件，分区对象中的decidedzone属性为null
         detachedCriteria.add(Restrictions.isNull("decidedzone"));
         return subareaDao.findByCriteria(detachedCriteria);
+    }
+
+    /**
+     * 根据定区id查询关联的分区
+     */
+    public List<Subarea> findListByDecidedzoneId(String decidedzoneId) {
+        DetachedCriteria detachedCriteria =  DetachedCriteria.forClass(Subarea.class);
+        detachedCriteria.add(Restrictions.eq("decidedzone.id", decidedzoneId));
+        return subareaDao.findByCriteria(detachedCriteria );
     }
 
 }

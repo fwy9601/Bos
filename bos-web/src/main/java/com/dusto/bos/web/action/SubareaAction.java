@@ -81,7 +81,8 @@ public class SubareaAction extends BaseAction<Subarea> {
 
     /**
      * 分区导出功能
-     * @throws IOException 
+     * 
+     * @throws IOException
      */
     public String exportXls() throws IOException {
 
@@ -107,24 +108,43 @@ public class SubareaAction extends BaseAction<Subarea> {
             dataRow.createCell(3).setCellValue(subarea.getPosition());
             dataRow.createCell(4).setCellValue(subarea.getRegion().getName());
         }
-        //第三步：使用输出流(一个流，两个头)进行文件下载
+        // 第三步：使用输出流(一个流，两个头)进行文件下载
         String filename = "分区数据.xls";
         String ContentType = ServletActionContext.getServletContext().getMimeType(filename);
         ServletOutputStream out = ServletActionContext.getResponse().getOutputStream();
         ServletActionContext.getResponse().setContentType(ContentType);
-        filename = FileUtils.encodeDownloadFilename(filename, ServletActionContext.getRequest().getHeader("User-Agent"));
-        ServletActionContext.getResponse().setHeader("content-disposition", "attachment;filename="+filename);
+        filename = FileUtils.encodeDownloadFilename(filename,
+                ServletActionContext.getRequest().getHeader("User-Agent"));
+        ServletActionContext.getResponse().setHeader("content-disposition", "attachment;filename=" + filename);
         workbook.write(out);
         return NONE;
     }
-    
+
     /**
      * 查询所有未关联到定区的分区，返回json
+     * 
      * @return
      */
-    public String listajax(){
-        List<Subarea> list  = subareaService.findListNotAssociation();
-        this.java2Json(list, new String[] {"region","decidedzone"});
+    public String listajax() {
+        List<Subarea> list = subareaService.findListNotAssociation();
+        this.java2Json(list, new String[] { "region", "decidedzone" });
         return NONE;
     }
+
+    // 属性驱动，接受定去id
+    private String decidedzoneId;
+
+    /**
+     * 根据定去id查询关联的分区信息
+     */
+    public String findListByDecidedzoneId() {
+        List<Subarea> list = subareaService.findListByDecidedzoneId(decidedzoneId);
+        java2Json(list, new String[] {"decidedzone","subareas"});
+        return NONE;
+    }
+
+    public void setDecidedzoneId(String decidedzoneId) {
+        this.decidedzoneId = decidedzoneId;
+    }
+    
 }

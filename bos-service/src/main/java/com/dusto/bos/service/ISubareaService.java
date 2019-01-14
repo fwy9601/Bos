@@ -14,5 +14,10 @@ public interface ISubareaService {
     public List<Subarea> findAll();
 
     public List<Subarea> findListNotAssociation();
+    
+    /**
+     * 根据定区id查询关联的分区
+     */
+    public List<Subarea> findListByDecidedzoneId(String decidedzoneId);
 
 }

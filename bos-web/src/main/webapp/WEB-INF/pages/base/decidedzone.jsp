@@ -162,6 +162,7 @@
 			url : "decidedzoneAction_pageQuery.action",
 			idField : 'id',
 			columns : columns,
+			//为数据表格绑定双击事件
 			onDblClickRow : doDblClickRow
 		});
 		
@@ -192,14 +193,14 @@
 		
 	});
 
-	function doDblClickRow(){
-		alert("双击表格数据...");
+	function doDblClickRow(index,data){
+		//将页面中table变成datagrid样式
 		$('#association_subarea').datagrid( {
 			fit : true,
 			border : true,
 			rownumbers : true,
 			striped : true,
-			url : "json/association_subarea.json",
+			url : "json/subareaAction_findListByDecidedzoneId.action?decidedzoneId="+data.id,
 			columns : [ [{
 				field : 'id',
 				title : '分拣编号',
@@ -409,7 +410,7 @@
                                         $("#noassociationSelect").append($("#associationSelect option:selected"));
                                     });
 							    	//为关联客户按钮绑定事件
-							    	$("#associationSelect").click(function(){
+							    	$("#associationBtn").click(function(){
 							    		//为隐藏域(存放定去id)赋值
 							    		var rows = $("#grid").datagrid("getSelections");
 							    		$("input[name=id]").val(rows[0].id);
