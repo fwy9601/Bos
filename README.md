@@ -3,7 +3,7 @@
 ### 技术栈
 
 - **开发环境**：`Eclipse` + `MAVEN` + `Git` + `MySQL` + `Linux`
-- **软件架构**：`Spring` + `Struts2` + `Hibernate`，使用`SOA`架构
+- **软件架构**：`Spring` + `Struts2` + `Hibernate`
 
 
 ### 功能列表
