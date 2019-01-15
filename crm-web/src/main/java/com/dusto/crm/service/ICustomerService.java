@@ -32,4 +32,13 @@ public interface ICustomerService {
      * @param customerIds
      */
     public void assigncustomerstodecidedzone(String decidedzoneId, Integer[] customerIds);
+    
+    /**
+     * 根据手机号查询客户信息
+     */
+    public Customer findCustomerByTelephone(String telephone);
+    /**
+     * 根据客户地址信息查询定去id
+     */
+    public String findDecidedzoneIdByAddress(String address);
 }

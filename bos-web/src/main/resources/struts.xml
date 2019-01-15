@@ -47,5 +47,8 @@
         <action name="decidedzoneAction_*" class="decidedzoneAction" method="{1}">
             <result name="list">/WEB-INF/pages/base/subarea.jsp</result>
         </action>
+        <!-- 定区管理 -->
+        <action name="noticebilAction_*" class="noticebilAction" method="{1}">
+        </action>
 	</package>
 </struts>

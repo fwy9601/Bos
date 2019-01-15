@@ -72,5 +72,32 @@ public class CustomerServiceImpl implements ICustomerService {
             jdbcTemplate.update(sql, decidedzoneId,id);
         }
     }
+    
+    //根据手机号查询客户信息
+    public Customer findCustomerByTelephone(String telephone) {
+        String sql = "SELECT * FROM t_customer WHERE telephone=?";
+        List<Customer> list = jdbcTemplate.query(sql, new RowMapper<Customer>(){
+            public Customer mapRow(ResultSet rs, int arg1) throws SQLException {
+                int id = rs.getInt("id");//根据字段名称从结果集中获取对应的值
+                String name = rs.getString("name");
+                String station = rs.getString("station");
+                String telephone = rs.getString("telephone");
+                String address = rs.getString("address");
+                String decidedzone_id = rs.getString("decidedzone_id");
+                return new Customer(id, name, station, telephone, address, decidedzone_id);
+            }
+        },telephone);
+        if(list!=null&&list.size()>0){
+            return list.get(0);
+        }
+        return null;
+    }
+    
+    //根据客户地址信息查询定去id
+    public String findDecidedzoneIdByAddress(String address) {
+        String sql = "SELECT decidedzone_id FROM t_customer WHERE address=?";
+        String decidedzone_id = jdbcTemplate.queryForObject(sql, String.class, address);
+        return decidedzone_id;
+    }
 
 }

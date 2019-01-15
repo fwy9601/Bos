@@ -19,7 +19,6 @@ import javax.xml.ws.ResponseWrapper;
  */
 @WebService(name = "ICustomerService", targetNamespace = "http://service.crm.dusto.com/")
 @XmlSeeAlso({
-    //ObjectFactory.class
 })
 public interface ICustomerService {
 
@@ -59,6 +58,34 @@ public interface ICustomerService {
     @RequestWrapper(localName = "findListNotAssociation", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindListNotAssociation")
     @ResponseWrapper(localName = "findListNotAssociationResponse", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindListNotAssociationResponse")
     public List<Customer> findListNotAssociation();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns com.dusto.crm.Customer
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findCustomerByTelephone", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindCustomerByTelephone")
+    @ResponseWrapper(localName = "findCustomerByTelephoneResponse", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindCustomerByTelephoneResponse")
+    public Customer findCustomerByTelephone(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findDecidedzoneIdByAddress", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindDecidedzoneIdByAddress")
+    @ResponseWrapper(localName = "findDecidedzoneIdByAddressResponse", targetNamespace = "http://service.crm.dusto.com/", className = "com.dusto.crm.FindDecidedzoneIdByAddressResponse")
+    public String findDecidedzoneIdByAddress(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 
