@@ -51,5 +51,8 @@
         <action name="noticebilAction_*" class="noticebilAction" method="{1}">
         	<result name="noticebill_add">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
         </action>
+         <!-- 定区管理 -->
+        <action name="workordermanageAction_*" class="workordermanageAction" method="{1}">
+        </action>
 	</package>
 </struts>
