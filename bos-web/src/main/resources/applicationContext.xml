@@ -59,4 +59,22 @@
 	
 	<!-- 注册客户端代理 -->
 	<jaxws:client id="crmClient" serviceClass="com.dusto.crm.ICustomerService" address="http://localhost:8080/crm-web/service/customer"/>
+	
+	<!-- 配置shiro框架的过滤器对象 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 注入安全管理器对象 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 注入相关页面访问url -->
+		<property name="loginUrl" value="/login.jsp"></property>
+		<property name="successUrl" value="/success.jsp"></property>
+		<property name="unauthorizedUrl" value="/unauthorizedUrl.jsp"></property>
+		<!-- 注入URL拦截规则 -->
+		<property name="filterChainDefinitionMap">
+			<value>
+				/** = autch
+			</value>
+		</property>
+	</bean>
+	<!-- 注册安全管理器对象 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"></bean>
 </beans>
