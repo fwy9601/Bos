@@ -66,12 +66,12 @@
 		<property name="securityManager" ref="securityManager"></property>
 		<!-- 注入相关页面访问url -->
 		<property name="loginUrl" value="/login.jsp"></property>
-		<property name="successUrl" value="/success.jsp"></property>
+		<property name="successUrl" value="/index.jsp"></property>
 		<property name="unauthorizedUrl" value="/unauthorizedUrl.jsp"></property>
 		<!-- 注入URL拦截规则 -->
-		<property name="filterChainDefinitionMap">
+		<property name="filterChainDefinitions">
 			<value>
-				/** = autch
+				/** = authc
 			</value>
 		</property>
 	</bean>
