@@ -43,7 +43,8 @@ public class UserAction extends BaseAction<User> {
             try {
                 subject.login(token);
             } catch (Exception e) {
-                e.printStackTrace();
+                // 登录失败，设置提示信息，跳转到登录页面
+                this.addActionError("用户名或者密码输入错误");
                 return LOGIN;
             }
             User user = (User) subject.getPrincipal();
