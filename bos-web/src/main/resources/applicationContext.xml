@@ -83,5 +83,9 @@
 		</property>
 	</bean>
 	<!-- 注册安全管理器对象 -->
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"></bean>
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="bosRealm"></property>
+	</bean>
+	<!-- 注册realm -->
+    <bean id="bosRealm" class="com.dusto.bos.realm.BOSRealm"></bean>
 </beans>

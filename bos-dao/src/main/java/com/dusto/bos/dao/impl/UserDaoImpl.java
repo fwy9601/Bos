@@ -10,10 +10,24 @@ import com.dusto.bos.domain.User;
 @Repository
 public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 
-    @Override
+    /**
+     * 根据用户名和密码查询用户
+     */
     public User findUserByUsernameAndPassword(String username,String password) {
         String hql = "FROM User u WHERE u.username = ? and u.password = ?";
         List<User> list = (List<User>)this.getHibernateTemplate().find(hql, username,password);
+        if(list!=null&&list.size()>0){
+            return list.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 
+     */
+    public User findUserByUsername(String username) {
+        String hql = "FROM User u WHERE u.username = ?";
+        List<User> list = (List<User>)this.getHibernateTemplate().find(hql, username);
         if(list!=null&&list.size()>0){
             return list.get(0);
         }
