@@ -48,9 +48,9 @@
 						<td colspan="2">功能权限信息</td>
 					</tr>
 					<tr>
-						<td width="200">编号</td>
+						<td width="200">关键字</td>
 						<td>
-							<input type="text" name="id" class="easyui-validatebox" data-options="required:true" />						
+							<input type="text" name="code" class="easyui-validatebox" data-options="required:true" />						
 						</td>
 					</tr>
 					<tr>

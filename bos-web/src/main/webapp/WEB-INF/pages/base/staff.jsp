@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,24 +39,29 @@
 
 	function doDelete() {
 		var rows = $("#grid").datagrid("getSelections");
-		if(rows.length==0){
-			$.messager.alert("提示信息","请选择需要删除的取派员","warning");
-		}else{
-		    //选中了取派员，弹出确认框
-		    $.messager.confirm("删除确认","你确定要删除选择的取派员吗？",function(r){
-		    	if(r){
-		    		//确认，发送请求
-		    		var array =  new Array();
-		    		//获取所有取派员的id
-		    		for(var i=0;i<rows.length;i++){
-		    			var staff = rows[i];
-		    			var id = staff.id;
-		    			array.push(id);
-		    		}
-		    		var ids = array.join(",");//1,2,3,4,5
-		    		location.href="staffAction_deleteBatch.action?ids="+ids;
-		    	}
-		    });
+		if (rows.length == 0) {
+			$.messager.alert("提示信息", "请选择需要删除的取派员", "warning");
+		} else {
+			//选中了取派员，弹出确认框
+			$.messager
+					.confirm(
+							"删除确认",
+							"你确定要删除选择的取派员吗？",
+							function(r) {
+								if (r) {
+									//确认，发送请求
+									var array = new Array();
+									//获取所有取派员的id
+									for (var i = 0; i < rows.length; i++) {
+										var staff = rows[i];
+										var id = staff.id;
+										array.push(id);
+									}
+									var ids = array.join(",");//1,2,3,4,5
+									location.href = "staffAction_deleteBatch.action?ids="
+											+ ids;
+								}
+							});
 		}
 	}
 
@@ -73,12 +79,16 @@
 		text : '增加',
 		iconCls : 'icon-add',
 		handler : doAdd
-	}, {
+	},
+	<shiro:hasPermission name="staff-delete">
+	{
 		id : 'button-delete',
 		text : '删除',
 		iconCls : 'icon-cancel',
 		handler : doDelete
-	}, {
+	},
+	</shiro:hasPermission>
+	{
 		id : 'button-save',
 		text : '还原',
 		iconCls : 'icon-save',
@@ -166,26 +176,26 @@
 			height : 400,
 			resizable : false
 		});
-		
+
 		// 删除取派员窗口
-        $('#editStaffWindow').window({
-            title : '修改取派员',
-            width : 400,
-            modal : true,
-            shadow : true,
-            closed : true,
-            height : 400,
-            resizable : false
-        });
+		$('#editStaffWindow').window({
+			title : '修改取派员',
+			width : 400,
+			modal : true,
+			shadow : true,
+			closed : true,
+			height : 400,
+			resizable : false
+		});
 
 	});
-	
-    //数据表格绑定双击事件对应的函数
+
+	//数据表格绑定双击事件对应的函数
 	function doDblClickRow(rowIndex, rowData) {
-    	//打开取派员窗口
+		//打开取派员窗口
 		$('#editStaffWindow').window("open");
-    	//使用from表单的load的方法回显
-		$('#editStaffForm').form("load",rowData);
+		//使用from表单的load的方法回显
+		$('#editStaffForm').form("load", rowData);
 	}
 </script>
 </head>
@@ -203,10 +213,9 @@
 					plain="true">保存</a>
 			</div>
 		</div>
-
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addStaffForm" action="staffAction_add.action"  method="post">
+			<form id="addStaffForm" action="staffAction_add.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
@@ -223,14 +232,16 @@
 						<td><script type="text/javascript">
 							$(function() {
 								//为按钮绑定事件
-								$("#save").click(function(){
-									//表单校验，如果通过就提交
-									var v = $("#addStaffForm").form("validate");
-									if(v){
-										//$("#addStaffForm").form("submit");不刷新页面
-										$("#addStaffForm").submit();
-									}
-								});
+								$("#save").click(
+										function() {
+											//表单校验，如果通过就提交
+											var v = $("#addStaffForm").form(
+													"validate");
+											if (v) {
+												//$("#addStaffForm").form("submit");不刷新页面
+												$("#addStaffForm").submit();
+											}
+										});
 								var reg = /^1[3|4|5|7|8][0-9]{9}$/;
 								//扩展手机校验
 								$.extend($.fn.validatebox.defaults.rules, {
@@ -265,75 +276,78 @@
 	</div>
 	<!-- 修改取派员窗口 -->
 	<div class="easyui-window" title="对收派员进行添加或者修改" id="editStaffWindow"
-        collapsible="false" minimizable="false" maximizable="false"
-        style="top: 20px; left: 200px">
-        <div region="north" style="height: 31px; overflow: hidden;"
-            split="false" border="false">
-            <div class="datagrid-toolbar">
-                <a id="edit" icon="icon-edit" href="#" class="easyui-linkbutton"
-                    plain="true">修改</a>
-            </div>
-        </div>
+		collapsible="false" minimizable="false" maximizable="false"
+		style="top: 20px; left: 200px">
+		<div region="north" style="height: 31px; overflow: hidden;"
+			split="false" border="false">
+			<div class="datagrid-toolbar">
+				<a id="edit" icon="icon-edit" href="#" class="easyui-linkbutton"
+					plain="true">修改</a>
+			</div>
+		</div>
 
-        <div region="center" style="overflow: auto; padding: 5px;"
-            border="false">
-            <form id="editStaffForm" action="staffAction_edit.action"  method="post">
-                <input type="hidden" name="id" />
-                <table class="table-edit" width="80%" align="center">
-                    <tr class="title">
-                        <td colspan="2">收派员信息</td>
-                    </tr>
-                    <!-- TODO 这里完善收派员添加 table -->
-                    <tr>
-                        <td>姓名</td>
-                        <td><input type="text" name="name" class="easyui-validatebox"
-                            required="true" /></td>
-                    </tr>
-                    <tr>
-                        <td>手机</td>
+		<div region="center" style="overflow: auto; padding: 5px;"
+			border="false">
+			<form id="editStaffForm" action="staffAction_edit.action"
+				method="post">
+				<input type="hidden" name="id" />
+				<table class="table-edit" width="80%" align="center">
+					<tr class="title">
+						<td colspan="2">收派员信息</td>
+					</tr>
+					<!-- TODO 这里完善收派员添加 table -->
+					<tr>
+						<td>姓名</td>
+						<td><input type="text" name="name" class="easyui-validatebox"
+							required="true" /></td>
+					</tr>
+					<tr>
+						<td>手机</td>
 
-                        <td><script type="text/javascript">
-                            $(function() {
-                                //为按钮绑定事件
-                                $("#edit").click(function(){
-                                    //表单校验，如果通过就提交
-                                    var v = $("#editStaffForm").form("validate");
-                                    if(v){
-                                        //$("#addStaffForm").form("submit");不刷新页面
-                                        $("#editStaffForm").submit();
-                                    }
-                                });
-                                var reg = /^1[3|4|5|7|8][0-9]{9}$/;
-                                //扩展手机校验
-                                $.extend($.fn.validatebox.defaults.rules, {
-                                    telephone : {
-                                        validator : function(value, param) {
-                                            return reg.test(value);
-                                        },
-                                        message : '手机号输入有误'
-                                    }
-                                });
-                            });
-                        </script> <input type="text" data-options="validType:'telephone'"
-                            name="telephone" class="easyui-validatebox" required="true" /></td>
-                    </tr>
-                    <tr>
-                        <td>单位</td>
-                        <td><input type="text" name="station"
-                            class="easyui-validatebox" required="true" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="checkbox" name="haspda"
-                            value="1" /> 是否有PDA</td>
-                    </tr>
-                    <tr>
-                        <td>取派标准</td>
-                        <td><input type="text" name="standard"
-                            class="easyui-validatebox" required="true" /></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </div>
+						<td><script type="text/javascript">
+							$(function() {
+								//为按钮绑定事件
+								$("#edit").click(
+										function() {
+											//表单校验，如果通过就提交
+											var v = $("#editStaffForm").form(
+													"validate");
+											if (v) {
+												//$("#addStaffForm").form("submit");不刷新页面
+												$("#editStaffForm").submit();
+											}
+										});
+								var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+								//扩展手机校验
+								$.extend($.fn.validatebox.defaults.rules, {
+									telephone : {
+										validator : function(value, param) {
+											return reg.test(value);
+										},
+										message : '手机号输入有误'
+									}
+								});
+							});
+						</script> <input type="text" data-options="validType:'telephone'"
+							name="telephone" class="easyui-validatebox" required="true" /></td>
+					</tr>
+					<tr>
+						<td>单位</td>
+						<td><input type="text" name="station"
+							class="easyui-validatebox" required="true" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="checkbox" name="haspda"
+							value="1" /> 是否有PDA</td>
+					</tr>
+					<tr>
+						<td>取派标准</td>
+						<td><input type="text" name="standard"
+							class="easyui-validatebox" required="true" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

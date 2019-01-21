@@ -88,4 +88,12 @@
 	</bean>
 	<!-- 注册realm -->
     <bean id="bosRealm" class="com.dusto.bos.realm.BOSRealm"></bean>
+    <!-- 开始shiro注解，自动代理 -->
+    <bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+    	<!-- 使用cglib为action创建代理对象 -->
+    	<property name="proxyTargetClass" value="true"></property>
+    </bean>
+    <!-- shiro切面类,用于创建代理对象 切面=通知+切点 -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+    
 </beans>
