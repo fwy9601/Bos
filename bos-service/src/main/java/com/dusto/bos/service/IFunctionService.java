@@ -8,5 +8,7 @@ public interface IFunctionService {
 
     public List<Function> ajaxlist();
 
+    public void save(Function model);
+
 
 }

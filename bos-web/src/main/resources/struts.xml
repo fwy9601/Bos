@@ -64,6 +64,7 @@
 		<!-- 权限管理 -->
 		<action name="functionAction_*" class="functionAction"
 			method="{1}">
+			<result name="list">/WEB-INF/pages/admin/function.jsp</result>
 		</action>
 	</package>
 </struts>

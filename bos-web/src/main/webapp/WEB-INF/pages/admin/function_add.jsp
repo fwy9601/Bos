@@ -30,7 +30,11 @@
 	$(function(){
 		// 点击保存
 		$('#save').click(function(){
-			location.href='${pageContext.request.contextPath}/page_admin_function.action';
+			// 表单
+            var v = $("#functionForm").form("validate");
+			if(v==true){
+				$("#functionForm").submit();
+			}
 		});
 	});
 </script>	
@@ -42,7 +46,7 @@
 	</div>
 </div>
 <div data-options="region:'center'">
-	<form id="functionForm" method="post">
+	<form id="functionForm" method="post" action="functionAction_add.action">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">功能权限信息</td>

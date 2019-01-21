@@ -25,4 +25,12 @@ public class FunctionAction extends BaseAction<Function> {
         java2Json(list, new String[]{"parentFunction","roles","children"});
         return NONE;
     }
+    
+    /**
+     * 添加权限
+     */
+    public String add(){
+        functionService.save(model);
+        return LIST;
+    }
 }
