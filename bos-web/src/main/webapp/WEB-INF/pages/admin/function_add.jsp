@@ -85,8 +85,9 @@
 						<td>
 							<!-- <input name="parentFunction.id" class="easyui-combobox" 
 							data-options="valueField:'id',textField:'name',url:'functionAction_ajaxlist.action'"/> -->
-							<input name="parentFunction.id" class="easyui-combotree" 
-                            data-options="valueField:'id',textField:'name',url:'functionAction_ajaxlist.action'"/> 
+							<input class="easyui-combotree" name="parentFunction.id"
+                                data-options="url:'functionAction_listajax.action'" 
+                                style="width:170px;">
 						</td>
 					</tr>
 					<tr>
