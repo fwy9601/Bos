@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dusto.bos.dao.IFunctionDao;
 import com.dusto.bos.domain.Function;
 import com.dusto.bos.service.IFunctionService;
+import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -29,6 +30,10 @@ public class FunctionServiceImpl implements IFunctionService {
             model.setParentFunction(null);
         }
         functionDao.save(model);
+    }
+
+    public void pageQuery(PageBean pageBean) {
+        functionDao.pageQuery(pageBean);
     }
 
 }

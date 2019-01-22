@@ -33,4 +33,14 @@ public class FunctionAction extends BaseAction<Function> {
         functionService.save(model);
         return LIST;
     }
+    
+    
+    public String pageQuery(){
+        // 解决pageBean属性设置问题，因为pageBean和model都有page属性
+        String page = model.getPage();
+        pageBean.setCurrentPage(Integer.valueOf(page));
+        functionService.pageQuery(pageBean);
+        this.java2Json(pageBean, new String[]{"parentFunction","roles","children"});
+        return NONE;
+    }
 }
