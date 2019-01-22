@@ -19,7 +19,7 @@ public class FunctionServiceImpl implements IFunctionService {
     @Autowired
     private IFunctionDao functionDao;
 
-    public List<Function> ajaxlist() {
+    public List<Function> findAll() {
         return functionDao.findAll();
     }
 

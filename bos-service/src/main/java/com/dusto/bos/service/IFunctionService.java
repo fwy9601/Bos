@@ -7,7 +7,7 @@ import com.dusto.bos.utils.PageBean;
 
 public interface IFunctionService {
 
-    public List<Function> ajaxlist();
+    public List<Function> findAll();
 
     public void save(Function model);
 

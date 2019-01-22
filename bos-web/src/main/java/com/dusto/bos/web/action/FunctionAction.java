@@ -21,8 +21,8 @@ public class FunctionAction extends BaseAction<Function> {
      * 查询所有权限，放回json数据
      */
     public String ajaxlist(){
-        List<Function> list = functionService.ajaxlist();
-        java2Json(list, new String[]{"parentFunction","roles","children"});
+        List<Function> list = functionService.findAll();
+        java2Json(list, new String[]{"parentFunction","roles"});
         return NONE;
     }
     
