@@ -114,6 +114,21 @@ public class UserAction extends BaseAction<User> {
         ServletActionContext.getResponse().getWriter().print(f);
         return NONE;
     }
+    
+    //属性驱动
+    private String[] roleIds;
+    public void setRoleIds(String[] roleIds) {
+        this.roleIds = roleIds;
+    }
+    
+    /**
+     * 添加用户
+     * @param checkcode
+     */
+    public String add(){
+        userService.save(model,roleIds);
+        return LIST;
+    }
 
     public void setCheckcode(String checkcode) {
         this.checkcode = checkcode;
