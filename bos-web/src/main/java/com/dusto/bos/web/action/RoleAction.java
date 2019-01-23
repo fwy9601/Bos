@@ -25,7 +25,7 @@ public class RoleAction extends BaseAction<Role> {
      */
     public String add(){
         service.add(model,functionIds);
-        return NONE;
+        return LIST;
     }
     
     public void setFunctionIds(String functionIds) {

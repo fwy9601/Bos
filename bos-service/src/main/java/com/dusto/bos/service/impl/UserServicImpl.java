@@ -42,6 +42,9 @@ public class UserServicImpl implements IUserService {
      * 添加用户，同时关联角色
      */
     public void save(User user, String[] roleIds) {
+        String password = user.getPassword();
+        password = MD5Utils.md5(password);
+        user.setPassword(password);
         userDao.save(user);
         if(roleIds!=null&&roleIds.length>0){
             for (String roleId : roleIds) {
