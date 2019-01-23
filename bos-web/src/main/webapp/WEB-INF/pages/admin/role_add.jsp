@@ -68,7 +68,23 @@
 		$('#save')
 				.click(
 						function() {
-							location.href = '${pageContext.request.contextPath}/page_admin_privilege.action';
+							//表单校验
+							var v = $("#roleForm").form("validate");
+							if(v){
+								//根据ztree的id获取ztree对象
+								var treeObj = $.fn.zTree.getZTreeObj("functionTree");
+								//获取ztree上选择的节点，返回数组对象
+						        var nodes = treeObj.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+						        var array = new Array();
+						        for(var i=0;i<nodes.length;i++){
+						        	var id = nodes[i].id;
+						        	array.push(id);
+						        }
+						        var functionIds = array.join(",");
+						        //为隐藏域赋值
+						        $("input[name=functionIds]").val(functionIds);
+								$("#roleForm").submit();
+							}
 						});
 	});
 </script>
@@ -83,7 +99,8 @@
 	</div>
 	<div region="center" style="overflow: auto; padding: 5px;"
 		border="false">
-		<form id="roleForm" method="post">
+		<form id="roleForm" method="post" action="roleAction_add.action">
+		     <input type="hidden" name="functionIds">
 			<table class="table-edit" width="80%" align="center">
 				<tr class="title">
 					<td colspan="2">角色信息</td>
