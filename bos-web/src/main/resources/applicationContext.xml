@@ -85,6 +85,13 @@
 	<!-- 注册安全管理器对象 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="bosRealm"></property>
+		<!-- 注入缓存管理器 -->
+		<property name="cacheManager" ref="ehCacheManager"></property>
+	</bean>
+	<!-- 注册缓存管理器 -->
+	<bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <!-- 主任ehcache配置文件 -->
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>		
 	</bean>
 	<!-- 注册realm -->
     <bean id="bosRealm" class="com.dusto.bos.realm.BOSRealm"></bean>
