@@ -1,5 +1,8 @@
 package com.dusto.bos.realm;
 
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -10,15 +13,21 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.dusto.bos.dao.IFunctionDao;
 import com.dusto.bos.dao.IUserDao;
+import com.dusto.bos.domain.Function;
 import com.dusto.bos.domain.User;
 
 public class BOSRealm extends AuthorizingRealm {
 
     @Autowired
     private IUserDao userdao;
+    
+    @Autowired
+    private IFunctionDao functionDao;
 
     /**
      * 认证方法
@@ -40,11 +49,25 @@ public class BOSRealm extends AuthorizingRealm {
     /**
      * 授权方法
      */
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         // 为用户授权
-        info.addStringPermission("staff-list");
-        // TODO 后期需要修改为根据当前用户查询数据库，获取实际对应的权限
+        //info.addStringPermission("staff-list");
+        //获取当前登录对象
+        User user = (User)SecurityUtils.getSubject().getPrincipal();
+        //User user2 = (User)principals.getPrimaryPrincipal();
+        // 根据当前用户查询数据库，获取实际对应的权限
+        List<Function> list = null;
+        if(user.getUsername().equals("admin")){
+            DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Function.class);
+            //超级管理员内置用户，查询所有权限数据
+            list = functionDao.findByCriteria(detachedCriteria );
+        }else {
+            list = (List<Function>) functionDao.findFunctionListByUserId(user.getId());
+        }
+        for (Function function : list) {
+            info.addStringPermission(function.getCode());
+        }
         return info;
     }
 

@@ -129,6 +129,16 @@ public class UserAction extends BaseAction<User> {
         userService.save(model,roleIds);
         return LIST;
     }
+    
+    /**
+     * 用户分业数据查询
+     * @param checkcode
+     */
+    public String pageQuery(){
+        userService.pageQuery(pageBean);
+        this.java2Json(pageBean, new String[]{"noticebills","roles"});
+        return NONE;
+    }
 
     public void setCheckcode(String checkcode) {
         this.checkcode = checkcode;

@@ -10,6 +10,7 @@ import com.dusto.bos.domain.Role;
 import com.dusto.bos.domain.User;
 import com.dusto.bos.service.IUserService;
 import com.dusto.bos.utils.MD5Utils;
+import com.dusto.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -55,6 +56,13 @@ public class UserServicImpl implements IUserService {
                 user.getRoles().add(role);
             }
         }
+    }
+
+    /**
+     * 分页查询
+     */
+    public void pageQuery(PageBean pageBean) {
+        userDao.pageQuery(pageBean);
     }
 
 }

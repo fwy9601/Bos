@@ -30,7 +30,20 @@
 	$(function(){
 		$("body").css({visibility:"visible"});
 		$('#save').click(function(){
-			$('#form').submit();
+			var v = $("#userform").form("validate");
+			if(v){
+			    $('#userform').submit();
+			}
+			var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+            //扩展手机校验
+            $.extend($.fn.validatebox.defaults.rules, {
+                telephone : {
+                    validator : function(value, param) {
+                        return reg.test(value);
+                    },
+                    message : '手机号输入有误'
+                }
+            });
 		});
 	});
 </script>	
@@ -42,7 +55,7 @@
 		</div>
 	</div>
     <div region="center" style="overflow:auto;padding:5px;" border="false">
-       <form id="form" method="post" >
+       <form id="userform" method="post"  action="userAction_add.action">
            <table class="table-edit"  width="95%" align="center">
            		<tr class="title"><td colspan="4">基本信息</td></tr>
 	           	<tr><td>用户名:</td><td><input type="text" name="username" id="username" class="easyui-validatebox" required="true" /></td>
@@ -70,7 +83,7 @@
 				<tr>
 					<td>联系电话</td>
 					<td colspan="3">
-						<input type="text" name="telephone" id="telephone" class="easyui-validatebox" required="true" />
+						<input data-options="validType:'telephone'" type="text" name="telephone" id="telephone" class="easyui-validatebox" required="true" />
 					</td>
 				</tr>
 	           	<tr><td>备注:</td><td colspan="3"><textarea style="width:80%"></textarea></td></tr>
