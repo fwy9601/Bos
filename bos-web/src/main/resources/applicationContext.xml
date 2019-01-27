@@ -90,7 +90,7 @@
 	</bean>
 	<!-- 注册缓存管理器 -->
 	<bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <!-- 主任ehcache配置文件 -->
+        <!-- 注入ehcache配置文件 -->
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>		
 	</bean>
 	<!-- 注册realm -->
