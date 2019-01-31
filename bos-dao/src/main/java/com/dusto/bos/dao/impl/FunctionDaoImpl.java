@@ -11,7 +11,7 @@ import com.dusto.bos.domain.Function;
 public class FunctionDaoImpl extends BaseDaoImpl<Function> implements IFunctionDao {
 
     public List<Function> findAll() {
-        String hql = "FROM Function f WHERE f.parentFunction IS NULL";
+        String hql = "FROM Function f WHERE f.parentFunction IS NULL ORDER BY f.zindex DESC";
         List<Function> list = (List<Function>)this.getHibernateTemplate().find(hql);
         return list;
     }
@@ -22,6 +22,22 @@ public class FunctionDaoImpl extends BaseDaoImpl<Function> implements IFunctionD
     public List<Function> findFunctionListByUserId(String userId) {
         String hql = "SELECT DISTINCT f FROM Function f LEFT OUTER JOIN f.role r LEFT OUTER JOIN r.users u WHERE u.id=?";
         List<Function> list = (List<Function>)this.getHibernateTemplate().find(hql, userId);
+        return list;
+    }
+
+    //根据用户id查询菜单
+    public List<Function> findMenuByUserId(String userId) {
+        String hql = "SELECT DISTINCT f FROM Function f LEFT OUTER JOIN f.role"
+                + " r LEFT OUTER JOIN r.users u WHERE u.id=? "
+                + "AND f.generatemenu='1' ORDER BY f.zindex DESC";
+        List<Function> list = (List<Function>)this.getHibernateTemplate().find(hql, userId);
+        return list;
+    }
+
+    //查询所有菜单
+    public List<Function> findAllMenu() {
+        String hql = "FROM Function f WHERE f.generatemenu='1' ORDER BY f.zindex DESC";
+        List<Function> list = (List<Function>)this.getHibernateTemplate().find(hql);
         return list;
     }
     
