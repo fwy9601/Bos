@@ -26,6 +26,8 @@
 <script
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/highcharts/modules/exporting.js"></script>
 <script type="text/javascript">
 	function doAdd() {
 		$('#addSubareaWindow').window("open");
@@ -84,6 +86,11 @@
 		text : '导出',
 		iconCls : 'icon-undo',
 		handler : doExport
+	}, {
+		id : 'button-showHighcharts',
+		text : '显示区域分区分布图',
+		iconCls : 'icon-search',
+		handler : doShowHighcharts
 	} ];
 	// 定义列
 	var columns = [ [ {
@@ -181,6 +188,16 @@
 			resizable : false
 		});
 
+		// 区域分区分布图
+	    $('#showHighcharts').window({
+	        width : 620,
+	        modal : true,
+	        shadow : true,
+	        closed : true,
+	        height : 450,
+	        resizable : false
+	    });
+		
 		// 查询分区
 		$('#searchWindow').window({
 			title : '查询分区',
@@ -224,6 +241,47 @@
 	function doDblClickRow() {
 		alert("双击表格数据...");
 	}
+
+	function doShowHighcharts() {
+	    $("#showHighcharts").window("open");
+	    $.post("subareaAction_findsubareasGroupByProvince.action",function(data){
+	    	$("#test").highcharts({
+	            chart: {
+	                plotBackgroundColor: null,
+	                plotBorderWidth: null,
+	                plotShadow: false,
+	                type: 'pie'
+	            },
+	            title: {
+	                text: '区域分区分布图'
+	            },
+	            tooltip: {
+	                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	            },
+	            plotOptions: {
+	                pie: {
+	                    allowPointSelect: true,
+	                    cursor: 'pointer',
+	                    dataLabels: {
+	                        enabled: true,
+	                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+	                        style: {
+	                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+	                        }
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '区域分区分布图',
+	                colorByPoint: true,
+	                data:data
+	            }]
+	        })
+	    })
+	    
+	}
+	
+	
 </script>
 </head>
 <body class="easyui-layout" style="visibility: hidden;">
@@ -334,6 +392,16 @@
 				</table>
 			</form>
 		</div>
+	</div>
+
+	<!-- 用于展示图表 -->
+	<div class="easyui-window" title="区域分区分布图" id="showHighcharts"
+		collapsible="false" minimizable="false" maximizable="false"
+		style="top: 20px; left: 200px">
+		<div id="test"  split="false"
+			border="false">
+	       	
+	   </div>
 	</div>
 </body>
 </html>
